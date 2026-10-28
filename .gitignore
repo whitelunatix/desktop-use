@@ -1,0 +1,18 @@
+# Runtime cache (screenshots, states, logs, machine info)
+.computer-use/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local env
+.env

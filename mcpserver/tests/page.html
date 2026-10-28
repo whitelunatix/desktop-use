@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>computer-use test</title>
+<style>
+  body { font: 18px/1.6 "Segoe UI", "Microsoft YaHei", sans-serif; margin: 24px; color: #222; }
+  h1 { font-size: 26px; margin: 0 0 12px; }
+  .tabs { margin: 16px 0; }
+  .tabs button { font-size: 20px; padding: 8px 20px; margin-right: 8px; cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: #1f6feb; color: #fff; border: 1px solid #1f6feb; }
+  .panel { border: 2px solid #999; padding: 18px; min-height: 120px; max-width: 720px; }
+  .panel[hidden] { display: none; }
+  #submit { font-size: 20px; padding: 10px 26px; margin: 8px 0; }
+  #status { color: #c62828; font-weight: 700; }
+  #cardA { width: 120px; height: 60px; background: #f6c344; display: inline-flex; align-items: center;
+           justify-content: center; margin: 12px; cursor: grab; }
+  #zone { width: 260px; height: 90px; border: 3px dashed #888; display: inline-flex; align-items: center;
+          justify-content: center; vertical-align: top; }
+  #filezone { width: 320px; height: 90px; border: 3px dashed #1f6feb; display: flex; align-items: center;
+              justify-content: center; margin: 12px 0; }
+  input { font-size: 18px; padding: 6px; margin: 4px 0; display: block; width: 320px; }
+  code { background: #eee; padding: 2px 6px; }
+</style>
+</head>
+<body>
+<h1>computer-use test</h1>
+
+<div class="tabs" role="tablist">
+  <button id="tabA" role="tab" aria-selected="true">选项卡 A</button>
+  <button id="tabB" role="tab" aria-selected="false">选项卡 B</button>
+</div>
+<div id="panelA" class="panel" role="tabpanel">面板 A 内容：这里是第一个选项卡，只有这段文字。</div>
+<div id="panelB" class="panel" role="tabpanel" hidden>面板 B 内容：第二个选项卡，包含下面的表格与按钮。</div>
+
+<button id="submit">提交审核</button>
+<span id="status"></span>
+
+<div>
+  <div id="cardA" draggable="true">卡片 A</div>
+  <div id="zone">拖到这里</div>
+</div>
+
+<div id="filezone">把文件拖到这里</div>
+
+<div style="margin: 16px 0;">
+  <button id="iconBtn" title="分享" aria-label="分享" style="font-size: 22px; padding: 8px 14px;">★</button>
+  <div id="tip" style="display: none; position: fixed; background: #222; color: #fff; padding: 6px 10px;
+       font-size: 16px; border-radius: 4px; pointer-events: none;">分享到其他位置</div>
+</div>
+
+<input id="pwd" type="password" placeholder="密码框（禁止输入）">
+<input id="plain" type="text" placeholder="普通输入框">
+
+<script>
+  const tabA = document.getElementById('tabA');
+  const tabB = document.getElementById('tabB');
+  function select(tab) {
+    const isA = tab === tabA;
+    tabA.setAttribute('aria-selected', String(isA));
+    tabB.setAttribute('aria-selected', String(!isA));
+    document.getElementById('panelA').hidden = !isA;
+    document.getElementById('panelB').hidden = isA;
+    document.title = isA ? 'computer-use tab-a' : 'computer-use tab-b';
+  }
+  tabA.onclick = () => select(tabA);
+  tabB.onclick = () => select(tabB);
+
+  document.getElementById('submit').onclick = () => {
+    document.title = 'SUBMITTED';
+    document.getElementById('status').textContent = '已提交';
+  };
+
+  const cardA = document.getElementById('cardA');
+  const zone = document.getElementById('zone');
+  cardA.ondragstart = (event) => event.dataTransfer.setData('text/plain', 'cardA');
+  zone.ondragover = (event) => event.preventDefault();
+  zone.ondrop = (event) => {
+    event.preventDefault();
+    zone.dataset.order = event.dataTransfer.getData('text/plain');
+    zone.textContent = '已放入 ' + zone.dataset.order;
+  };
+
+  const iconBtn = document.getElementById('iconBtn');
+  const iconTip = document.getElementById('tip');
+  iconBtn.addEventListener('mouseenter', () => {
+    const rect = iconBtn.getBoundingClientRect();
+    iconTip.style.left = rect.left + 'px';
+    iconTip.style.top = (rect.bottom + 6) + 'px';
+    iconTip.style.display = 'block';
+  });
+  iconBtn.addEventListener('mouseleave', () => { iconTip.style.display = 'none'; });
+  iconBtn.onclick = () => { document.title = 'icon-clicked'; };
+
+  const filezone = document.getElementById('filezone');
+  filezone.ondragover = (event) => event.preventDefault();
+  filezone.ondrop = (event) => {
+    event.preventDefault();
+    const files = Array.from(event.dataTransfer.files).map((f) => f.name).join(', ');
+    filezone.textContent = '收到文件: ' + (files || '（无）');
+  };
+</script>
+</body>
+</html>
