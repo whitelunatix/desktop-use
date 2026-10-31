@@ -332,6 +332,29 @@ def cu_click(id: int | None = None, text: str | None = None, x: int | None = Non
 
 
 @mcp.tool()
+def cu_double_click(id: int | None = None, text: str | None = None, x: int | None = None,
+                    y: int | None = None, template: str | None = None, offset: str | None = None,
+                    button: str = "left", nth: int = 1, threshold: float = 0.87,
+                    region: str | None = None, modifiers: str | None = None,
+                    dry_run: bool = False, allow_risky: bool = False,
+                    state_id: str | None = None, force_stale: bool = False,
+                    window: str | None = None, hwnd: int | None = None) -> str:
+    """双击：等价 cu_click(count=2)，目标四选一 —— id / text / x+y（桌面物理像素）/ template。
+
+    编辑器里的占位文字、Word/Excel 单元格、文件名这类“双击才进入编辑”的目标用这个；
+    两次按下之间的间隔由 winenv.click_at 控制在同一位置、短间隔内，能触发 WM_LBUTTONDBLCLK。
+    其余参数含义同 cu_click。
+    """
+    xy = f"{x},{y}" if x is not None and y is not None else None
+    return _guard(lambda: actions.click(
+        element_id=id, text=text, xy=xy, template=template, offset=offset, button=button,
+        count=2, nth=nth, threshold=threshold, region=crop.parse_box(region) if region else None,
+        modifiers=modifiers, dry_run=dry_run, allow_risky=allow_risky, state_id=state_id,
+        force_stale=force_stale, window=window, hwnd=hwnd,
+    ))
+
+
+@mcp.tool()
 def cu_hover(id: int | None = None, text: str | None = None, x: int | None = None, y: int | None = None,
              template: str | None = None, offset: str | None = None, nth: int = 1,
              threshold: float = 0.87, region: str | None = None, window: str | None = None,

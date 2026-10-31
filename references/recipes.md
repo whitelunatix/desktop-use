@@ -51,6 +51,7 @@ cu_click(template="btn-submit")        # 模板匹配
 cu_click(text="保存", offset="0,-8")    # 命中点上再平移
 cu_click(text="文件", modifiers="ctrl") # 组合键点击
 cu_click(text="提交审核", dry_run=True)  # 只算坐标不点
+cu_double_click(x=640, y=420)          # 双击（= cu_click(count=2)）：占位文字/单元格/文件名进编辑
 ```
 
 ## 3. 截图裁剪 + 模板点击
@@ -225,6 +226,7 @@ cu_window("resize", title="<窗口标题>", size="1200,800", mode="drag", allow_
 |---|---|
 | `cu_see` | monitor, window, region, filter, ocr, fast, mode, templates, annotate, max_elements, redact, compare_to, diff_keyword, max_regions, diff_crops, only_changed, diff_threshold, include_screen, overlay, include_popups, include_windows |
 | `cu_click` | id / text / x+y / template, offset, button, count, nth, threshold, region, modifiers, dry_run, allow_risky, state_id, force_stale, window, hwnd |
+| `cu_double_click` | 同 `cu_click`，去掉 count（固定 count=2） |
 | `cu_move` | to(选择器), offset, duration, settle, state_id, window, hwnd |
 | `cu_hover` | id / text / x+y / template, offset, nth, threshold, region, window, hwnd, settle, state_id, force_stale |
 | `cu_type` | text, into_id, method(auto/clipboard), clear, enter, state_id, window, hwnd |

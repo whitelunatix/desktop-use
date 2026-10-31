@@ -38,7 +38,7 @@ description: 像人一样看屏幕并在屏幕上操作时使用：截图识别�
 | 差异对比 | `cu_see(compare_to=...)`、`cu_diff` |
 | 界面状态树 | `cu_tree` |
 | 找模板、查历史截图 | `cu_crop`、`cu_locate`、`cu_query` |
-| 点、移、输、按键 | `cu_click`、`cu_move`、`cu_type`、`cu_key`、`cu_press`、`cu_release`、`cu_scroll`、`cu_drag` |
+| 点、移、输、按键 | `cu_click`、`cu_double_click`、`cu_move`、`cu_type`、`cu_key`、`cu_press`、`cu_release`、`cu_scroll`、`cu_drag` |
 | 悬停读 tooltip（纯图标） | `cu_hover` |
 | 等待条件 | `cu_wait` |
 | 窗口 / 文件夹 / 剪贴板 | `cu_window`（list/focus/close/move/**resize**）、`cu_folder`、`cu_clipboard` |

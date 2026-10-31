@@ -63,8 +63,8 @@ cu_window("focus", title="<窗口标题>")
 cu_window("resize", title="<窗口标题>", size="1200,800", mode="drag", edge="bottom-right")
 ```
 
-21 个工具：`cu_init` `cu_see` `cu_diff` `cu_tree` `cu_query` `cu_locate` `cu_crop`
-`cu_click` `cu_move` `cu_type` `cu_key` `cu_press` `cu_release` `cu_scroll` `cu_drag`
+22 个工具：`cu_init` `cu_see` `cu_diff` `cu_tree` `cu_query` `cu_locate` `cu_crop`
+`cu_click` `cu_double_click` `cu_move` `cu_type` `cu_key` `cu_press` `cu_release` `cu_scroll` `cu_drag`
 `cu_hover` `cu_wait` `cu_window` `cu_folder` `cu_clipboard` `cu_doctor`。
 
 参数、错误码与更多流程见 [`references/recipes.md`](references/recipes.md)。
@@ -79,7 +79,7 @@ cu_window("resize", title="<窗口标题>", size="1200,800", mode="drag", edge="
 │   ├── diff-and-tree.md     # 差异对比与界面状态树
 │   └── troubleshooting.md   # 排错手册
 └── mcpserver/
-    ├── server.py            # FastMCP，21 个工具，异常统一映射为 {ok:false,error,hint}
+    ├── server.py            # FastMCP，22 个工具，异常统一映射为 {ok:false,error,hint}
     ├── vision.py            # 截图 + 弹窗选择 + 识别 + 缓存
     ├── capture.py           # mss / PrintWindow 抓图、指纹、变化度量
     ├── recognize.py         # UIA 子进程 + RapidOCR + 合并去重
